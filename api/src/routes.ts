@@ -1,6 +1,11 @@
 import z from "zod"
 import { FastifyTypedInstance } from "./types.js"
 import { randomUUID } from "node:crypto"
+import { eq } from 'drizzle-orm'
+import { db } from './db/connection.js'
+import { products } from './db/schema.js'
+import { ok } from './lib/response.js'
+
 
 interface User {
     id: string
@@ -59,4 +64,25 @@ export async function routes(app: FastifyTypedInstance) {
 
         return reply.status(201).send(null)
     })
+
+    app.get('/products', {
+  schema: {
+    tags: ['products'],
+    description: 'Lista os insumos de uma organização',
+    querystring: z.object({
+      id_organization: z.coerce.number().int().positive(),
+    }),
+  },
+}, async (request) => {
+  const { id_organization } = request.query
+
+  // Filtro por id_organization é obrigatório, não remover
+  const data = await db
+    .select()
+    .from(products)
+    .where(eq(products.id_organization, id_organization))
+
+  return ok(data)
+})
+
 }
