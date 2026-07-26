@@ -23,17 +23,17 @@ Node.js + TypeScript (ESM/NodeNext) · Fastify · Zod · Drizzle ORM + mysql2 ·
 > O código fica na pasta `api/`.
 
 1. Clone e entre na pasta:
-git clone <url-do-repo>
-cd suplos-api/api
+```git clone <url-do-repo> ```
+```cd suplos-api/api```
 
-2. Instale as dependências: `npm install`
-3. Crie o `.env` a partir do exemplo e preencha com as credenciais do banco de
+1. Instale as dependências: `npm install`
+2. Crie o `.env` a partir do exemplo e preencha com as credenciais do banco de
 leitura (peça ao time): `cp .env.example .env`
-4. O banco não é acessível direto — abra um **túnel SSH** pelo bastion (peça acesso
+1. O banco não é acessível direto — abra um **túnel SSH** pelo bastion (peça acesso
 e a chave ao time). Com o túnel aberto, o `DB_HOST` aponta para `127.0.0.1` e a
 porta local do túnel.
-5. Suba a API: `npm run dev`
-6. Teste: `/health`, `/products?id_organization=1`, `/docs`
+1. Suba a API: `npm run dev`
+2. Teste: `/health`, `/products?id_organization=1`, `/docs`
 
 ## O que eu aprendi / onde travei
 
