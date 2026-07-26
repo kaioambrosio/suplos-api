@@ -5,10 +5,10 @@ import {
   jsonSchemaTransform,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
-
 import {fastifySwagger} from '@fastify/swagger'
 import {fastifyCors} from '@fastify/cors'
-import ScalarFastifyApiReference  from '@scalar/fastify-api-reference'
+import fastifySwaggerUi from '@fastify/swagger-ui'
+import { routes } from './routes.js'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -16,11 +16,10 @@ app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
 app.register(fastifyCors, {
-  origin: true,
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', "PATCH", 'DELETE', 'OPTIONS'],
   // credentials: true,
 })
-
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -31,14 +30,11 @@ app.register(fastifySwagger, {
   },
   transform: jsonSchemaTransform,
 })
-
-app.register(ScalarFastifyApiReference, {
+app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
-
-app.get('/health', () => {
-  return { status: 'ok' }
-})
+  
+app.register(routes)
 
 app.listen({ port: 3333, host: '0.0.0.0' }).then(() => {
   console.log("👌👌 Servidor rodando em http://localhost:3333")
