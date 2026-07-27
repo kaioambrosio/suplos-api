@@ -1,6 +1,6 @@
-# Suplos Onboarding API
+# Projeto Onboarding API
 
-Primeira atividade de onboarding na Suplos: uma API em Node.js + TypeScript (Fastify)
+Primeira atividade de onboarding: uma API em Node.js + TypeScript (Fastify)
 que sobe um servidor, tem documentação automática (Swagger) e lê dados reais de um MySQL.
 
 ## O que a API faz
